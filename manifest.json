@@ -1,0 +1,19 @@
+{
+  "name": "TrainerRoad Workouts To Zwift",
+  "version": "0.1.0",
+  "manifest_version": 3,
+  "permissions": ["webRequest", "tabs", "debugger", "downloads"],
+  "host_permissions": ["https://www.trainerroad.com/", "http://*.google.com/"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.trainerroad.com/app/cycling/workouts/*"],
+      "js": ["buttonScript.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
