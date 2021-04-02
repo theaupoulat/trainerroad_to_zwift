@@ -2,7 +2,7 @@
   "name": "TrainerRoad Workouts To Zwift",
   "version": "0.2.0",
   "manifest_version": 3,
-  "permissions": ["webRequest"],
+  "permissions": [],
   "host_permissions": ["https://www.trainerroad.com/", "http://*.google.com/"],
   "content_scripts": [
     {
