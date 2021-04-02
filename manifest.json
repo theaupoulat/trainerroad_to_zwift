@@ -1,12 +1,12 @@
 {
   "name": "TrainerRoad Workouts To Zwift",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "manifest_version": 3,
   "permissions": [],
-  "host_permissions": ["https://www.trainerroad.com/", "http://*.google.com/"],
+  "host_permissions": ["https://www.trainerroad.com/"],
   "content_scripts": [
     {
-      "matches": ["https://*.trainerroad.com/app/cycling/workouts/*"],
+      "matches": ["https://*.trainerroad.com/*"],
       "js": ["buttonScript.js"]
     }
   ],
