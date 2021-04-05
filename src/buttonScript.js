@@ -13,10 +13,15 @@ setInterval(function () {
 }, 500);
 
 function addZwiftExportButton(siblingId) {
-  const scheduleButton = document.getElementById(siblingId);
+  const targetElement = document.getElementById(siblingId);
   const zwiftButton = createZwiftButton();
-  let parentDiv = scheduleButton.parentNode;
-  parentDiv.insertBefore(zwiftButton, scheduleButton.nextSibling);
+  let parentDiv = targetElement.parentNode;
+  if (document.getElementById("workoutOverviewStats")) {
+    const scheduleButtonDiv = parentDiv.children[1];
+    scheduleButtonDiv.insertBefore(zwiftButton, scheduleButtonDiv.children[0]);
+  } else {
+    parentDiv.insertBefore(zwiftButton, parentDiv.children[0]);
+  }
 }
 
 function createZwiftButton() {
@@ -24,12 +29,27 @@ function createZwiftButton() {
   zwiftButton.onclick = getWorkoutData;
   zwiftButton.innerHTML = "Export to Zwift";
   zwiftButton.setAttribute("id", "zwiftButton");
-  zwiftButton.classList.add(
-    "Button__button___3ip3e",
-    "Button__button--blue___2e46W",
-    "Button__button--small___rtJlF"
-  );
-  zwiftButton.style.marginLeft = "5px";
+
+  if (document.getElementById("workoutOverviewStats")) {
+    zwiftButton.classList.add(
+      "button",
+      "button--ghost",
+      "button--light",
+      "button--normal"
+    );
+    zwiftButton.style.backgroundColor = "#fd671a";
+    zwiftButton.style.borderColor = "#fd671a";
+    zwiftButton.setAttribute("trbutton", "");
+    zwiftButton.setAttribute("_nghost-c3", "");
+    zwiftButton.style.color = "white";
+  } else {
+    zwiftButton.classList.add(
+      "Button__button___3ip3e",
+      "Button__button--blue___2e46W",
+      "Button__button--small___rtJlF"
+    );
+  }
+  zwiftButton.style.marginRight = "5px";
 
   return zwiftButton;
 }
