@@ -120,16 +120,30 @@ function getWorkoutData() {
     .then((data) => {
       const { Workout } = data;
       const workoutName = Workout.Details.WorkoutName;
-      const { intervalData } = Workout;
+      const { intervalData, workoutData } = Workout;
       let workoutString = "";
-      for (let interval of intervalData) {
+      for (let [intervalIndex, interval] of intervalData.entries()) {
         if (interval.Name === "Workout") {
           continue;
         }
+        let workoutInterval;
+
         const duration = interval.End - interval.Start;
-        const power = interval.StartTargetPowerPercent / 100;
+        const lastSecondPowerPercent = workoutData[interval.End].ftpPercent;
+        // above is not very accurate, as some seconds are broken down, may change for filter
+        const nextIntervalStartPower =
+          intervalData[intervalIndex + 1].StartTargetPowerPercent;
+        const power = interval.StartTargetPowerPercent;
         const pace = 0;
-        const workoutInterval = `<SteadyState Duration="${duration}" Power="${power}" pace="${pace}"/>\n`;
+        const zwiftPower = power / 100;
+
+        if (lastSecondPowerPercent > power || lastSecondPowerPercent < power) {
+          const powerHigh = nextIntervalStartPower / 100;
+          workoutInterval = `<Ramp Duration="${duration}" PowerLow="${zwiftPower}" PowerHigh="${powerHigh}" pace="${pace}"/>\n`;
+        } else {
+          workoutInterval = `<SteadyState Duration="${duration}" Power="${zwiftPower}" pace="${pace}"/>\n`;
+        }
+
         workoutString = workoutString.concat(workoutInterval);
       }
 
