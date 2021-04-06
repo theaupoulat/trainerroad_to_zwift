@@ -1,4 +1,6 @@
-# 🚴 🚴‍♂️ Chrome extension to format and download a TrainerRoad workout to a Zwift workout file. [![Chrome Web Store](https://img.shields.io/static/v1?label=chrome%20web%20store&message=v0.2.2&color=orange)](https://chrome.google.com/webstore/detail/trainerroad-workouts-to-z/hionaainojfejlajodojnnhfedmlipah) [![MIT License](https://img.shields.io/badge/license-MIT-9cf)](https://en.wikipedia.org/wiki/MIT_License)
+# 🚴 🚴‍♂️ Chrome extension to format and download a TrainerRoad workout to a Zwift workout file.
+
+[![Chrome Web Store](https://img.shields.io/static/v1?label=chrome%20web%20store&message=v0.2.2&color=orange)](https://chrome.google.com/webstore/detail/trainerroad-workouts-to-z/hionaainojfejlajodojnnhfedmlipah) [![MIT License](https://img.shields.io/badge/license-MIT-9cf)](https://en.wikipedia.org/wiki/MIT_License)
 
 ## Description
 
