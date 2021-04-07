@@ -118,21 +118,45 @@ function getWorkoutData() {
   fetch(apiUrl + workoutId)
     .then((response) => response.json())
     .then((data) => {
+      console.time("Parse Workout");
       const { Workout } = data;
       const workoutName = Workout.Details.WorkoutName;
+      // need to check for correct data
       const { intervalData, workoutData } = Workout;
       let workoutString = "";
+      const secondRandomDelta = workoutData.length - intervalData[0].End;
       for (let [intervalIndex, interval] of intervalData.entries()) {
         if (interval.Name === "Workout") {
+          console.log("Workout duration in seconds");
+          console.log(interval.End);
+          console.log("Length of workout data");
+          console.log(workoutData.length);
           continue;
         }
         let workoutInterval;
 
         const duration = interval.End - interval.Start;
-        const lastSecondPowerPercent = workoutData[interval.End].ftpPercent;
-        // above is not very accurate, as some seconds are broken down, may change for filter
-        const nextIntervalStartPower =
-          intervalData[intervalIndex + 1].StartTargetPowerPercent;
+        const lastSecond = interval.End - 1;
+
+        // find the correct last second in the workout data
+        const subArrayForSearch = workoutData.slice(
+          interval.End - secondRandomDelta,
+          interval.End + (secondRandomDelta + 1)
+        );
+
+        const filteredSeconds = subArrayForSearch.filter(
+          (el) => el.seconds === lastSecond * 1000
+        );
+
+        // needs to check for existing element
+        const lastSecondPowerPercent = filteredSeconds[0].ftpPercent;
+
+        let nextIntervalStartPower;
+        if (intervalData[intervalIndex + 1]) {
+          nextIntervalStartPower =
+            intervalData[intervalIndex + 1].StartTargetPowerPercent;
+        }
+
         const power = interval.StartTargetPowerPercent;
         const pace = 0;
         const zwiftPower = power / 100;
@@ -146,7 +170,7 @@ function getWorkoutData() {
 
         workoutString = workoutString.concat(workoutInterval);
       }
-
+      console.timeEnd("Parse Workout");
       exportToXml(workoutName, workoutString);
     });
 }
