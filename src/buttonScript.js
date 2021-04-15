@@ -151,7 +151,7 @@ function getWorkoutData() {
         // needs to check for existing element
         const lastSecondPowerPercent = filteredSeconds[0].ftpPercent;
 
-        let nextIntervalStartPower;
+        let nextIntervalStartPower = lastSecondPowerPercent;
         if (intervalData[intervalIndex + 1]) {
           nextIntervalStartPower =
             intervalData[intervalIndex + 1].StartTargetPowerPercent;
