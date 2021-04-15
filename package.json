@@ -3,7 +3,7 @@
   "version": "0.3.0",
   "description": "Chrome extension to format and download a TrainerRoad workout to a Zwift workout file.",
   "scripts": {
-    "build": "zip -r ./build/release.zip ./src/"
+    "build": "zip -r release.zip ./src/"
   },
   "repository": {
     "type": "git",
